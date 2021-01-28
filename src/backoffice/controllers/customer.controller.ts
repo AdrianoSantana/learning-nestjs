@@ -1,24 +1,62 @@
-import { Controller, Delete, Get, Post, Put } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
+import { Customer } from "../models/customer.model";
+import { Result } from "../models/result.model";
 
 @Controller('v1/customers')
 export class CustomerController {
     @Get()
-    findAllCustomers(): string {
-        return 'Obter os clientes'
+    findAllCustomers(): Result {
+        return new Result(
+            null,
+            true,
+            [],
+            null
+        )
+    }
+
+    @Get(':document')
+    getById(@Param('document') document): Result {
+        return new Result(
+            null,
+            true,
+            [],
+            null
+        )
     }
 
     @Post()
-    post() {
-        return 'Criar um cliente'
+    post(@Body() body: Customer): Result {
+        const customer = new Customer(
+            body.name,
+            body.document,
+            body.email,
+            body.password
+        )
+        return new Result(
+            'Cliente cadastrado com sucesso!',
+            true,
+            customer,
+            null
+        );
     }
 
-    @Put()
-    put() {
-        return 'Atualizar um cliente'
+    @Put(':id')
+    put(@Param('id') id, @Body() body): Result {
+        return new Result(
+            'Cliente atualizado com sucesso',
+            true,
+            [],
+            null
+        )
     }
 
-    @Delete()
-    delete() {
-        return 'Remover um cliente'
+    @Delete(':id')
+    delete(@Param('id') id): Result {
+        return new Result(
+            'Cliente deletado com sucesso',
+            true,
+            [],
+            null
+        )
     }
 }
