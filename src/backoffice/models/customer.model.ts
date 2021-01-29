@@ -1,6 +1,7 @@
 'use strict'
 
-import { Address } from 'cluster';
+import { Address } from './address.model';
+import { CreditCard } from './creditCard.model';
 import { Pet } from './pet.model';
 
 export class Customer {
@@ -14,12 +15,16 @@ export class Customer {
         public pets: Pet[],
         public billingAddress: Address,
         public shippingAddress: Address,
-        public creditCard: Address
+        public creditCard: CreditCard
     ) {
        name = name;
        document = document;
        email = email;
        password = password;
        this.active = true;
+       pets = pets;
+       billingAddress = billingAddress;
+       shippingAddress = shippingAddress;
+       creditCard = creditCard;
     }
 }
